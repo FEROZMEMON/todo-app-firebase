@@ -7,28 +7,24 @@ const email = document.querySelector("#email")
 const password = document.querySelector("#password")
 
 
-  
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
+form.addEventListener("submit", (event) => {
 
+  event.preventDefault();
 
-signInWithEmailAndPassword(auth, email.value, password.value)
-  .then((userCredential) => {
-     
-    const user = userCredential.user;
-    console.log(user);
+  signInWithEmailAndPassword(auth, email.value, password.value)
+    .then((userCredential) => {
 
+      const user = userCredential.user;
+      console.log(user);
 
+      window.location = "home.html"
 
-    window.location = "./home.html"
+    })
+    .catch((error) => {
+      alert("invalid login")
+    });
 
-  })
-  .catch((error) => {
-alert("invalid login")
 });
-
-
-  });
 
 
 
