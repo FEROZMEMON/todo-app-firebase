@@ -13,37 +13,55 @@ const password = document.querySelector("#password")
 const confirm = document.querySelector("#confirm")
 
 
+form.addEventListener("submit",(event) => {
+    event.preventDefault();
 
-// form.addEventListener("submit", (event) => {
-//     event.preventDefault();
-
-//     if (password.value === confirm.value) {
-//         createUserWithEmailAndPassword(auth, email.value, password.value)
-//             .then((userCredential) => {
-//                 const user = userCredential.user;
-//                 console.log(user);
+    if (password.value === confirm.value) {
+        createUserWithEmailAndPassword(auth, email.value, password.value)
+            .then(async(userCredential) => {
+                const user = userCredential.user;
+                console.log(user);
                
-//                 addDoc(collection(db, "users"), {
-//                     name:name.value,
-//                     email: email.value,
-//                     uid: user.uid
-//                 }
+                addDoc(collection(db, "users"), {
+                    name:name.value,
+                    email: email.value,
+                    uid: user.uid
+                }).then((res)=>{
+                    console.log(res);
+        
+                    
+                    email.value = "";
+                    confirm.value = "";
+                    name.value = "";
+                    password.value = "";
+                    
+                    window.location = "index.html";
+                    
+                }).catch((err)=>{
+                    console.log(err);
+                })
+                  
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            });
+    } else {
+        alert("Password does not match");
+    }
+});
 
-//                 email.value = "";
-//                 confirm.value = "";
-//                 name.value = "";
-//                 password.value = "";
 
-//                 window.location = "index.html";
 
-//             })
-//             .catch((error) => {
-//                 const errorCode = error.code;
-//                 const errorMessage = error.message;
-//                 console.log(errorMessage);
-//             });
-//     } else {
-//         alert("Password does not match");
-//     }
-// });
+
+
+
+
+
+
+
+
+
+
 
